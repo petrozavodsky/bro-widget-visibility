@@ -493,9 +493,6 @@ class BroWidgetVisibility {
 				}
 			} elseif ( array_key_exists( $rule['major'], $taxonomies ) ) {
 				foreach ( $taxonomies as $taxonomy ) {
-				    d(
-					    $taxonomy, $rule['minor']
-				    );
 					if ( is_tax( $taxonomy, $rule['minor'] ) || 'all' == $rule['minor'] ) {
 						$condition_result = true;
 					}
