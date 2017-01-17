@@ -58,6 +58,17 @@ class BroWidgetVisibility {
 					<?php
 				}
 				break;
+			case 'loggedin':
+				?>
+                <option value="loggedin" <?php selected( 'loggedin', $minor ); ?>>
+                    <?php _e( 'Logged In', self::$textdomain ); ?>
+                </option>
+                <option value="loggedout" <?php selected( 'loggedout', $minor ); ?>>
+                    <?php _e( 'Logged Out', self::$textdomain ); ?>
+                </option>
+				<?php
+				break;
+
 			case 'author':
 				?>
                 <option value="">
@@ -74,6 +85,15 @@ class BroWidgetVisibility {
 					<?php
 				}
 				break;
+			case 'role':
+				global $wp_roles;
+				foreach ( $wp_roles->roles as $role_key => $role ) {
+					?>
+                    <option value="<?php echo esc_attr( $role_key ); ?>" <?php selected( $role_key, $minor ); ?> ><?php echo esc_html( $role['name'] ); ?></option>
+					<?php
+				}
+				break;
+
 			case 'tag':
 				?>
                 <option value="all">
@@ -262,6 +282,15 @@ class BroWidgetVisibility {
                                     <option value="author" <?php selected( "author", $rule['major'] ); ?>>
 										<?php echo esc_html_x( 'Author', 'Noun, as in: "The author of this post is..."', self::$textdomain ); ?>
                                     </option>
+
+                                    <option value="loggedin" <?php selected( "loggedin", $rule['major'] ); ?>>
+										<?php echo esc_html_x( 'User', 'Noun', self::$textdomain ); ?>
+                                    </option>
+
+                                    <option value="role" <?php selected( "role", $rule['major'] ); ?>>
+										<?php echo esc_html_x( 'Role', 'Noun, as in: "The user role of that can access this widget is..."', self::$textdomain ); ?>
+                                    </option>
+
                                     <option value="tag" <?php selected( "tag", $rule['major'] ); ?>>
 										<?php echo esc_html_x( 'Tag', 'Noun, as in: "This post has one tag."', self::$textdomain ); ?>
                                     </option>
@@ -483,6 +512,11 @@ class BroWidgetVisibility {
 					$condition_result = true;
 				}
 
+			} elseif ( $rule['major'] == 'loggedin' ) {
+				$condition_result = is_user_logged_in();
+				if ( 'loggedin' !== $rule['minor'] ) {
+					$condition_result = ! $condition_result;
+				}
 			} elseif ( $rule['major'] == 'author' ) {
 				if ( ! $rule['minor'] && is_author() ) {
 					$condition_result = true;
@@ -490,6 +524,21 @@ class BroWidgetVisibility {
 					$condition_result = true;
 				} else if ( is_singular() && $rule['minor'] && $rule['minor'] == $post->post_author ) {
 					$condition_result = true;
+				}
+			} elseif ( $rule['major'] == 'role' ) {
+				if ( is_user_logged_in() ) {
+					$current_user = wp_get_current_user();
+
+					$user_roles = $current_user->roles;
+
+					if ( in_array( $rule['minor'], $user_roles ) ) {
+						$condition_result = true;
+					} else {
+						$condition_result = false;
+					}
+
+				} else {
+					$condition_result = false;
 				}
 			} elseif ( array_key_exists( $rule['major'], $taxonomies ) ) {
 				foreach ( $taxonomies as $taxonomy ) {
