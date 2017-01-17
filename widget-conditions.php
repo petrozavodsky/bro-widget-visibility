@@ -1,4 +1,5 @@
 <?php
+
 /*
 Plugin Name: Bro Widget Visibility
 Author: Petrozavodsky
@@ -492,7 +493,10 @@ class BroWidgetVisibility {
 				}
 			} elseif ( array_key_exists( $rule['major'], $taxonomies ) ) {
 				foreach ( $taxonomies as $taxonomy ) {
-					if ( is_tax( $taxonomy, $rule['minor'] ) ) {
+				    d(
+					    $taxonomy, $rule['minor']
+				    );
+					if ( is_tax( $taxonomy, $rule['minor'] ) || 'all' == $rule['minor'] ) {
 						$condition_result = true;
 					}
 				}
