@@ -153,8 +153,10 @@ class BroWidgetVisibility {
 					<?php _e( 'Singular page', self::$textdomain ); ?>
                 </option>
                 <option value="404" <?php selected( '404', $minor ); ?>>
-
 					<?php _e( '404 error page', self::$textdomain ); ?>
+                </option>
+                <option value="front" <?php selected( 'paged', $minor ); ?>>
+					<?php _e( 'Paged page', self::$textdomain ); ?>
                 </option>
                 <option value="search" <?php selected( 'search', $minor ); ?>>
 					<?php _e( 'Search results', self::$textdomain ); ?>
@@ -478,6 +480,9 @@ class BroWidgetVisibility {
 						break;
 					case 'home':
 						$condition_result = is_home();
+						break;
+					case 'paged':
+						$condition_result = is_paged();
 						break;
 					case 'front':
 						$condition_result = is_front_page();
