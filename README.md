@@ -1,4 +1,4 @@
-#RU
+**RU**
 Bro Widget Visibility
 ===================
 
@@ -17,7 +17,7 @@ Bro Widget Visibility
  - На страницах пагинации
  - На страницвх отдельных типов постов
 
-#EN
+**EN**
 
 Bro Widget Visibility
 ===================
@@ -35,3 +35,4 @@ Jetpack mofule widget visibility fork
  - Page taxonomies;
  - Page paged
  - Paege singular
+
