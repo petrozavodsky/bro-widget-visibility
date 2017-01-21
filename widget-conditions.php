@@ -552,10 +552,12 @@ class BroWidgetVisibility {
 					$condition_result = false;
 				}
 			} elseif ( array_key_exists( $rule['major'], $taxonomies ) ) {
-				foreach ( $taxonomies as $taxonomy ) {
-					if ( is_tax( $taxonomy, $rule['minor'] ) || 'all' == $rule['minor'] ) {
-						$condition_result = true;
-					}
+				foreach ($taxonomies as $taxonomy) {
+				    if (is_tax($taxonomy, $rule['minor'])) {
+					$condition_result = true;
+				    }elseif (is_tax($taxonomy) && 'all' == $rule['minor']  ){
+					$condition_result = true;
+				    }
 				}
 			}
 
@@ -570,7 +572,8 @@ class BroWidgetVisibility {
 	}
 
 
-	public static function strcasecmp_name( $a, $b ) {
+	public static function 
+		e( $a, $b ) {
 		return strcasecmp( $a->name, $b->name );
 	}
 
