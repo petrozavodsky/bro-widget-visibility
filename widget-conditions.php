@@ -149,7 +149,7 @@ class BroWidgetVisibility {
                 <option value="posts" <?php selected( 'posts', $minor ); ?>>
 					<?php _e( 'Posts page', self::$textdomain ); ?>
                 </option>
-                <option value="posts" <?php selected( 'singular', $minor ); ?>>
+                <option value="singular" <?php selected( 'singular', $minor ); ?>>
 					<?php _e( 'Singular page', self::$textdomain ); ?>
                 </option>
                 <option value="404" <?php selected( '404', $minor ); ?>>
